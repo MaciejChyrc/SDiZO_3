@@ -1,6 +1,16 @@
 #include "KnapsackProblem.h"
 #include <iostream>
 #include <iomanip>
+#include <windows.h>
+
+long long int KnapsackProblem::read_QPC()
+{
+	LARGE_INTEGER count;
+	DWORD_PTR oldmask = SetThreadAffinityMask(GetCurrentThread(), 0);
+	QueryPerformanceCounter(&count);
+	SetThreadAffinityMask(GetCurrentThread(), oldmask);
+	return static_cast<long long int>(count.QuadPart);
+}
 
 KnapsackProblem::KnapsackProblem()
 {
@@ -12,17 +22,20 @@ KnapsackProblem::~KnapsackProblem()
 
 }
 
-void KnapsackProblem::GreedyByProfit(vector<BpItem> items, int capacity)
+void KnapsackProblem::GreedyByProfit(vector<BpItem> items, int capacity, vector<double> &vectorOfTimes)
 {
+	long long int frequency, timeStart, timeElapsed;
 	priority_queue<BpItem, vector<BpItem>, CmpProfitability> itemQ;
+	vector<BpItem> backpack;
+	int backpackCurrentWeight = 0, backpackCurrentValue = 0;
 	
+	QueryPerformanceFrequency(reinterpret_cast<LARGE_INTEGER*>(&frequency));
+	timeStart = read_QPC();
+
 	for (int i = 0; i < items.size(); i++)
 	{
 		itemQ.push(items[i]);
 	}
-	
-	vector<BpItem> backpack;
-	int backpackCurrentWeight = 0, backpackCurrentValue = 0;
 
 	while (backpackCurrentWeight <= capacity && !itemQ.empty())
 	{
@@ -36,6 +49,9 @@ void KnapsackProblem::GreedyByProfit(vector<BpItem> items, int capacity)
 		else break;
 	}
 
+	timeElapsed = read_QPC() - timeStart;
+	vectorOfTimes.push_back(static_cast<double>(timeElapsed) / static_cast<double>(frequency) * 1000.0);
+
 	cout << "Pojemnosc plecaka: " << capacity << "\n";
 	cout << "Waga zapakowanych przedmiotow: " << backpackCurrentWeight << "\n";
 	cout << "Wartosc zapakowanych przedmiotow: " << backpackCurrentValue << "\n\n";
@@ -47,17 +63,20 @@ void KnapsackProblem::GreedyByProfit(vector<BpItem> items, int capacity)
 	}
 }
 
-void KnapsackProblem::GreedyByValue(vector<BpItem> items, int capacity)
+void KnapsackProblem::GreedyByValue(vector<BpItem> items, int capacity, vector<double> &vectorOfTimes)
 {
+	long long int frequency, timeStart, timeElapsed;
 	priority_queue<BpItem, vector<BpItem>, CmpValue> itemQ;
+	vector<BpItem> backpack;
+	int backpackCurrentWeight = 0, backpackCurrentValue = 0;
 
+	QueryPerformanceFrequency(reinterpret_cast<LARGE_INTEGER*>(&frequency));
+	timeStart = read_QPC();
+	
 	for (int i = 0; i < items.size(); i++)
 	{
 		itemQ.push(items[i]);
 	}
-
-	vector<BpItem> backpack;
-	int backpackCurrentWeight = 0, backpackCurrentValue = 0;
 
 	while (backpackCurrentWeight <= capacity && !itemQ.empty())
 	{
@@ -71,6 +90,9 @@ void KnapsackProblem::GreedyByValue(vector<BpItem> items, int capacity)
 		else break;
 	}
 
+	timeElapsed = read_QPC() - timeStart;
+	vectorOfTimes.push_back(static_cast<double>(timeElapsed) / static_cast<double>(frequency) * 1000.0);
+
 	cout << "Pojemnosc plecaka: " << capacity << "\n";
 	cout << "Waga zapakowanych przedmiotow: " << backpackCurrentWeight << "\n";
 	cout << "Wartosc zapakowanych przedmiotow: " << backpackCurrentValue << "\n\n";
@@ -82,9 +104,13 @@ void KnapsackProblem::GreedyByValue(vector<BpItem> items, int capacity)
 	}
 }
 
-void KnapsackProblem::Dynamic(vector<BpItem> items, int capacity)
+void KnapsackProblem::Dynamic(vector<BpItem> items, int capacity, vector<double> &vectorOfTimes)
 {	
+	long long int frequency, timeStart, timeElapsed;
 	vector<vector<int>> sol(items.size() + 1);
+
+	QueryPerformanceFrequency(reinterpret_cast<LARGE_INTEGER*>(&frequency));
+	timeStart = read_QPC();
 	
 	for (int i = 0; i <= items.size(); i++)
 		for (int j = 0; j <= capacity; j++)
@@ -106,6 +132,9 @@ void KnapsackProblem::Dynamic(vector<BpItem> items, int capacity)
 			}
 		}
 	}
+
+	timeElapsed = read_QPC() - timeStart;
+	vectorOfTimes.push_back(static_cast<double>(timeElapsed) / static_cast<double>(frequency) * 1000.0);
 
 	cout << "Max wartosc: " << sol[items.size() - 1][capacity] << "\n   ";
 

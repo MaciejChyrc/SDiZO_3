@@ -29,6 +29,13 @@ struct BpItem
 	int value, weight;
 	double profitability;
 
+	BpItem ()
+	{
+		this->value = 0;
+		this->weight = 0;
+		this->profitability = static_cast<double>(value) / static_cast<double>(weight);
+	}
+
 	BpItem (int value, int weight)
 	{
 		this->value = value;

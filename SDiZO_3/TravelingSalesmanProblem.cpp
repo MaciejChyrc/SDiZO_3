@@ -2,6 +2,16 @@
 #include <iostream>
 #include "HamiltonCycle.h"
 #include <queue>
+#include <windows.h>
+
+long long int TravelingSalesmanProblem::read_QPC()
+{
+	LARGE_INTEGER count;
+	DWORD_PTR oldmask = SetThreadAffinityMask(GetCurrentThread(), 0);
+	QueryPerformanceCounter(&count);
+	SetThreadAffinityMask(GetCurrentThread(), oldmask);
+	return static_cast<long long int>(count.QuadPart);
+}
 
 TravelingSalesmanProblem::TravelingSalesmanProblem()
 {
@@ -13,7 +23,7 @@ TravelingSalesmanProblem::~TravelingSalesmanProblem()
 
 }
 
-int TravelingSalesmanProblem::minCost = INT_MAX;
+/*int TravelingSalesmanProblem::minCost = INT_MAX;
 
 int TravelingSalesmanProblem::getMinCost()
 {
@@ -59,10 +69,11 @@ void TravelingSalesmanProblem::permute(int *city, int i, int n, int **graph, int
 			swap (city + i, city + j);
 		}
 	}
-}
+}*/
 
-void TravelingSalesmanProblem::TspGreedyBasedOnPrim(int startV, GraphMatrix * graphMatrix)
+void TravelingSalesmanProblem::GreedyBasedOnPrim(int startV, GraphMatrix * graphMatrix, vector<double> &vectorOfTimes)
 {
+	long long int frequency, timeStart, timeElapsed;
 	int** graph = graphMatrix->matrix;
 	int verticesNumber = graphMatrix->getVerticesNumber();
 	bool* visited = new bool[verticesNumber];
@@ -71,6 +82,9 @@ void TravelingSalesmanProblem::TspGreedyBasedOnPrim(int startV, GraphMatrix * gr
 	priority_queue<Edge, vector<Edge>, CmpEdgeWeight> edgeQ;
 	Edge edge;
 	int i, x;
+
+	QueryPerformanceFrequency(reinterpret_cast<LARGE_INTEGER*>(&frequency));
+	timeStart = read_QPC();
 
 	for (i = 0; i < verticesNumber; i++)
 	{
@@ -107,6 +121,9 @@ void TravelingSalesmanProblem::TspGreedyBasedOnPrim(int startV, GraphMatrix * gr
 	edge.fromVertexId = cycle.getEdge(cycle.listOfEdges.size() - 1).destVertexId;
 	edge.weight = graph[edge.fromVertexId][edge.destVertexId];
 	cycle.add(edge);
+
+	timeElapsed = read_QPC() - timeStart;
+	vectorOfTimes.push_back(static_cast<double>(timeElapsed) / static_cast<double>(frequency) * 1000.0);
 
 	cycle.createCycleFromListOfEdges(verticesNumber);
 	cout << "Najkrotsza sciezka (algorytm zachlanny):\n";
