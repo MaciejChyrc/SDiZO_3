@@ -111,6 +111,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GraphMatrix.cpp" />
+    <ClCompile Include="KnapsackProblem.cpp" />
+    <ClCompile Include="HamiltonCycle.cpp" />
+    <ClCompile Include="SDiZO_3.cpp" />
+    <ClCompile Include="TravelingSalesmanProblem.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GraphMatrix.h" />
+    <ClInclude Include="KnapsackProblem.h" />
+    <ClInclude Include="MinorStructs.h" />
+    <ClInclude Include="HamiltonCycle.h" />
+    <ClInclude Include="TravelingSalesmanProblem.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
