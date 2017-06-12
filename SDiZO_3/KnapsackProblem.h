@@ -7,6 +7,7 @@ using namespace std;
 
 class KnapsackProblem
 {
+private:
 	static long long int read_QPC();
 public:
 	KnapsackProblem();

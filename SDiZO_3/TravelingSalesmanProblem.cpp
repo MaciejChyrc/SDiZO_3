@@ -3,7 +3,7 @@
 #include "HamiltonCycle.h"
 #include <queue>
 #include <windows.h>
-
+//-----------------------------------------------------------------------------
 long long int TravelingSalesmanProblem::read_QPC()
 {
 	LARGE_INTEGER count;
@@ -70,9 +70,17 @@ void TravelingSalesmanProblem::permute(int *city, int i, int n, int **graph, int
 		}
 	}
 }*/
-
-void TravelingSalesmanProblem::GreedyBasedOnPrim(int startV, GraphMatrix * graphMatrix, vector<double> &vectorOfTimes)
+///<note>Algorytm zachlanny wyznaczajacy sciezke miedzy wszystkimi miastami i wraca do miasta startowego
+///<note>W odroznieniu do algorytmu Prima czyszczona jest kolejka po przejsciu do nastepnego wierzcholka (miasta),
+///<note>dzieki czemu kazdy wierzcholek jest 2-ego stopnia i tworzony jest cykl Hamiltona.
+void TravelingSalesmanProblem::GreedyBasedOnPrim(int startV, GraphMatrix *graphMatrix, vector<double> &vectorOfTimes)
 {
+	if ((startV < 0 || startV >= graphMatrix->getVerticesNumber()) || graphMatrix == nullptr)
+	{
+		cout << "Nieodpowiednie parametry.\nNiewlasciwe miasto poczatkowe lub zbior miast jest niezainicjalizowany.\n";
+		return;
+	}
+	
 	long long int frequency, timeStart, timeElapsed;
 	int** graph = graphMatrix->matrix;
 	int verticesNumber = graphMatrix->getVerticesNumber();
@@ -117,6 +125,7 @@ void TravelingSalesmanProblem::GreedyBasedOnPrim(int startV, GraphMatrix * graph
 		x = edge.destVertexId;
 		while (!edgeQ.empty()) edgeQ.pop();
 	}
+	//prowadzimy sciezke od ostatniego odwiedzonego miasta z powrotem do miasta poczatkowego
 	edge.destVertexId = cycle.getEdge(0).fromVertexId;
 	edge.fromVertexId = cycle.getEdge(cycle.listOfEdges.size() - 1).destVertexId;
 	edge.weight = graph[edge.fromVertexId][edge.destVertexId];

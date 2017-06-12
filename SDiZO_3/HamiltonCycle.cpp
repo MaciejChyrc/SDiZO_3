@@ -38,7 +38,7 @@ HamiltonCycle::~HamiltonCycle()
 	}
 	delete[] adjList;
 }
-///<note>Utworzenie MST z vectora krawedzi o zadanej ilosci wierzcholkow.
+///<note>Utworzenie cyklu Hamiltona z vectora krawedzi o zadanej ilosci wierzcholkow.
 void HamiltonCycle::createCycleFromListOfEdges(int v)
 {
 	if (listOfEdges.size() > (v * (v - 1)) / 2)
@@ -92,7 +92,7 @@ void HamiltonCycle::add(Edge edge)
 {
 	listOfEdges.push_back(edge);
 }
-
+//-----------------------------------------------------------------------------
 Edge HamiltonCycle::getEdge(int index)
 {
 	return listOfEdges[index];
@@ -102,7 +102,7 @@ ListElement* HamiltonCycle::getAdjList(int i)
 {
 	return adjList[i];
 }
-///<note>Wydruk MST w postaci listowej.
+///<note>Wydruk w postaci listowej.
 void HamiltonCycle::printAdjacencyList()
 {
 	ListElement* ptr;
@@ -120,7 +120,7 @@ void HamiltonCycle::printAdjacencyList()
 	}
 	cout << "\nWaga cyklu: " << weight << "\n";
 }
-///<note>Wydruk MST w postaci listy krawedzi.
+///<note>Wydruk w postaci listy krawedzi.
 void HamiltonCycle::printListOfEdges()
 {
 	cout << "Krawedz | Waga\n";

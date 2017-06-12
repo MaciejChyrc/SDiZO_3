@@ -1,6 +1,8 @@
 #pragma once
 ///<note>Pomniejsze struktury: krawedz(waga ,v poczatkowy, v koncowy),
-///<note>krawedz do listy sasiadow (waga, v koncowy, wskaznik na nastepny element)
+///<note>krawedz do listy sasiadow (waga, v koncowy, wskaznik na nastepny element),
+///<note>przedmiot wkladany do plecaka (wartosc, waga, stosunek wartosc/waga),
+///<note>struktury porownan wykorzystywane w kolejce priorytetowej biblioteki standardowej
 struct Edge
 {
 	int weight, fromVertexId, destVertexId;
