@@ -205,17 +205,17 @@ void readCitiesFromTextFile (string filepath, GraphMatrix *graphM)
 				{
 					temp.fromVertexId = i;
 					file >> temp.weight;
-					temp.destVertexId = j;
+					temp.destVertexId = j;	
 					if (file.fail())
 					{
-						cout << "Blad odczytu.\n";
+						cout << "Blad odczytu w linii " << i + 1 << " kolumnie " << j + 1 << ".\n";
 						return;
 					}
-					edges.push_back(temp);
+					if (temp.weight != 0) edges.push_back(temp);
 				}
 			}
 			graphM->copyListOfEdges(edges);
-			graphM->createGraphFromListOfEdges(verticesNumber);
+			graphM->createDirectedGraphFromListOfEdges(verticesNumber);
 			graphM->setStartVertex(startVertex);
 			file.close();
 		}

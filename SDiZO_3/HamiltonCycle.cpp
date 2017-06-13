@@ -126,8 +126,8 @@ void HamiltonCycle::printListOfEdges()
 	cout << "Krawedz | Waga\n";
 	for (int i = 0; i < listOfEdges.size(); i++)
 	{
-		cout << "(" << listOfEdges[i].fromVertexId << "|" << listOfEdges[i].destVertexId << ")";
-		cout << "  " << listOfEdges[i].weight << "\n";
+		cout << "(" << setw(2) << listOfEdges[i].fromVertexId << "|" << setw(2) << listOfEdges[i].destVertexId << ")";
+		cout << setw(6) << listOfEdges[i].weight << "\n";
 	}
 	cout << "\nWaga cyklu: " << weight << "\n";
 }

@@ -31,12 +31,11 @@ void KnapsackProblem::GreedyByProfit(vector<BpItem> items, int capacity, vector<
 	}
 	
 	long long int frequency, timeStart, timeElapsed;
+	QueryPerformanceFrequency(reinterpret_cast<LARGE_INTEGER*>(&frequency));
+	timeStart = read_QPC();
 	priority_queue<BpItem, vector<BpItem>, CmpProfitability> itemQ;
 	vector<BpItem> backpack;
 	int backpackCurrentWeight = 0, backpackCurrentValue = 0;
-	
-	QueryPerformanceFrequency(reinterpret_cast<LARGE_INTEGER*>(&frequency));
-	timeStart = read_QPC();
 
 	for (int i = 0; i < items.size(); i++)
 	{
@@ -56,7 +55,7 @@ void KnapsackProblem::GreedyByProfit(vector<BpItem> items, int capacity, vector<
 	}
 
 	timeElapsed = read_QPC() - timeStart;
-	vectorOfTimes.push_back(static_cast<double>(timeElapsed) / static_cast<double>(frequency) * 1000.0);
+	vectorOfTimes.push_back(static_cast<double>(timeElapsed) / static_cast<double>(frequency) * 1000000.0);
 	cout << "\n---Algorytm zachlanny oparty na oplacalnosci przedmiotow---\n\n";
 	cout << "Pojemnosc plecaka: " << capacity << "\n";
 	cout << "Waga zapakowanych przedmiotow: " << backpackCurrentWeight << "\n";
@@ -78,13 +77,12 @@ void KnapsackProblem::GreedyByValue(vector<BpItem> items, int capacity, vector<d
 	}
 	
 	long long int frequency, timeStart, timeElapsed;
+	QueryPerformanceFrequency(reinterpret_cast<LARGE_INTEGER*>(&frequency));
+	timeStart = read_QPC();
 	priority_queue<BpItem, vector<BpItem>, CmpValue> itemQ;
 	vector<BpItem> backpack;
 	int backpackCurrentWeight = 0, backpackCurrentValue = 0;
 
-	QueryPerformanceFrequency(reinterpret_cast<LARGE_INTEGER*>(&frequency));
-	timeStart = read_QPC();
-	
 	for (int i = 0; i < items.size(); i++)
 	{
 		itemQ.push(items[i]);
@@ -103,7 +101,7 @@ void KnapsackProblem::GreedyByValue(vector<BpItem> items, int capacity, vector<d
 	}
 
 	timeElapsed = read_QPC() - timeStart;
-	vectorOfTimes.push_back(static_cast<double>(timeElapsed) / static_cast<double>(frequency) * 1000.0);
+	vectorOfTimes.push_back(static_cast<double>(timeElapsed) / static_cast<double>(frequency) * 1000000.0);
 	cout << "\n---Algorytm zachlanny oparty na wartosci przedmiotow---\n\n";
 	cout << "Pojemnosc plecaka: " << capacity << "\n";
 	cout << "Waga zapakowanych przedmiotow: " << backpackCurrentWeight << "\n";
@@ -126,10 +124,9 @@ void KnapsackProblem::Dynamic(vector<BpItem> items, int capacity, vector<double>
 	}
 	
 	long long int frequency, timeStart, timeElapsed;
-	vector<vector<int>> sol(items.size() + 1);
-
 	QueryPerformanceFrequency(reinterpret_cast<LARGE_INTEGER*>(&frequency));
 	timeStart = read_QPC();
+	vector<vector<int>> sol(items.size() + 1);
 	
 	for (int i = 0; i <= items.size(); i++)
 		for (int j = 0; j <= capacity; j++)
@@ -153,7 +150,7 @@ void KnapsackProblem::Dynamic(vector<BpItem> items, int capacity, vector<double>
 	}
 
 	timeElapsed = read_QPC() - timeStart;
-	vectorOfTimes.push_back(static_cast<double>(timeElapsed) / static_cast<double>(frequency) * 1000.0);
+	vectorOfTimes.push_back(static_cast<double>(timeElapsed) / static_cast<double>(frequency) * 1000000.0);
 	cout << "\n---Algorytm oparty na programowaniu dynamicznym---\n\n";
 	cout << "Pojemnosc plecaka: " << capacity << "\n";
 	cout << "Wartosc zapakowanych przedmiotow: " << sol[items.size() - 1][capacity] << "\n";

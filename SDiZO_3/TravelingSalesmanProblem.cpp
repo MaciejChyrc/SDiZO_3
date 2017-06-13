@@ -82,6 +82,8 @@ void TravelingSalesmanProblem::GreedyBasedOnPrim(int startV, GraphMatrix *graphM
 	}
 	
 	long long int frequency, timeStart, timeElapsed;
+	QueryPerformanceFrequency(reinterpret_cast<LARGE_INTEGER*>(&frequency));
+	timeStart = read_QPC();
 	int** graph = graphMatrix->matrix;
 	int verticesNumber = graphMatrix->getVerticesNumber();
 	bool* visited = new bool[verticesNumber];
@@ -90,9 +92,6 @@ void TravelingSalesmanProblem::GreedyBasedOnPrim(int startV, GraphMatrix *graphM
 	priority_queue<Edge, vector<Edge>, CmpEdgeWeight> edgeQ;
 	Edge edge;
 	int i, x;
-
-	QueryPerformanceFrequency(reinterpret_cast<LARGE_INTEGER*>(&frequency));
-	timeStart = read_QPC();
 
 	for (i = 0; i < verticesNumber; i++)
 	{
@@ -132,7 +131,7 @@ void TravelingSalesmanProblem::GreedyBasedOnPrim(int startV, GraphMatrix *graphM
 	cycle.add(edge);
 
 	timeElapsed = read_QPC() - timeStart;
-	vectorOfTimes.push_back(static_cast<double>(timeElapsed) / static_cast<double>(frequency) * 1000.0);
+	vectorOfTimes.push_back(static_cast<double>(timeElapsed) / static_cast<double>(frequency) * 1000000.0);
 
 	cycle.createCycleFromListOfEdges(verticesNumber);
 	cout << "Najkrotsza sciezka (algorytm zachlanny):\n";
