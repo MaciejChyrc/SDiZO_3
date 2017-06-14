@@ -256,7 +256,7 @@ void readKnapsackParametersFromTextFile(string filepath, int &capacity, vector<B
 void saveTimesToTextFile (bool kpOrTsp, string capOrCities, string nOfItems, double avgTime1, double avgTime2, double avgTime3)
 {
 	string winUser = "";
-	cout << "Nazwe uzytkownika w windowsie";
+	cout << "Nazwe uzytkownika w windowsie: ";
 	cin >> winUser;
 	if (kpOrTsp)
 	{
@@ -343,42 +343,6 @@ void knapsackTests (vector<double> &greedyProfitTimes, vector<double> &greedyVal
 	greedyValueTimes.clear();
 	dynamicTimes.clear();
 
-	numberOfItems = 15;
-	//testy dla 15 przedmiotow i pojemnosci 10, 15, 20
-	for (int i = 0; i < 100; i++)
-	{
-		testItems = generateRandomItemSet(numberOfItems);
-		KnapsackProblem::GreedyByProfit(testItems, 10, greedyProfitTimes);
-		KnapsackProblem::GreedyByValue(testItems, 10, greedyValueTimes);
-		KnapsackProblem::Dynamic(testItems, 10, dynamicTimes);
-	}
-	saveTimesToTextFile(false, "10", to_string(numberOfItems), averageOperationTime(greedyProfitTimes), averageOperationTime(greedyValueTimes), averageOperationTime(dynamicTimes));
-	greedyProfitTimes.clear();
-	greedyValueTimes.clear();
-	dynamicTimes.clear();
-	for (int i = 0; i < 100; i++)
-	{
-		testItems = generateRandomItemSet(numberOfItems);
-		KnapsackProblem::GreedyByProfit(testItems, 15, greedyProfitTimes);
-		KnapsackProblem::GreedyByValue(testItems, 15, greedyValueTimes);
-		KnapsackProblem::Dynamic(testItems, 15, dynamicTimes);
-	}
-	saveTimesToTextFile(false, "15", to_string(numberOfItems), averageOperationTime(greedyProfitTimes), averageOperationTime(greedyValueTimes), averageOperationTime(dynamicTimes));
-	greedyProfitTimes.clear();
-	greedyValueTimes.clear();
-	dynamicTimes.clear();
-	for (int i = 0; i < 100; i++)
-	{
-		testItems = generateRandomItemSet(numberOfItems);
-		KnapsackProblem::GreedyByProfit(testItems, 20, greedyProfitTimes);
-		KnapsackProblem::GreedyByValue(testItems, 20, greedyValueTimes);
-		KnapsackProblem::Dynamic(testItems, 20, dynamicTimes);
-	}
-	saveTimesToTextFile(false, "20", to_string(numberOfItems), averageOperationTime(greedyProfitTimes), averageOperationTime(greedyValueTimes), averageOperationTime(dynamicTimes));
-	greedyProfitTimes.clear();
-	greedyValueTimes.clear();
-	dynamicTimes.clear();
-
 	numberOfItems = 20;
 	//testy dla 20 przedmiotow i pojemnosci 10, 15, 20
 	for (int i = 0; i < 100; i++)
@@ -415,8 +379,8 @@ void knapsackTests (vector<double> &greedyProfitTimes, vector<double> &greedyVal
 	greedyValueTimes.clear();
 	dynamicTimes.clear();
 
-	numberOfItems = 25;
-	//testy dla 25 przedmiotow i pojemnosci 10, 15, 20
+	numberOfItems = 30;
+	//testy dla 30 przedmiotow i pojemnosci 10, 15, 20
 	for (int i = 0; i < 100; i++)
 	{
 		testItems = generateRandomItemSet(numberOfItems);
@@ -451,8 +415,44 @@ void knapsackTests (vector<double> &greedyProfitTimes, vector<double> &greedyVal
 	greedyValueTimes.clear();
 	dynamicTimes.clear();
 
-	numberOfItems = 30;
-	//testy dla 30 przedmiotow i pojemnosci 10, 15, 20
+	numberOfItems = 40;
+	//testy dla 40 przedmiotow i pojemnosci 10, 15, 20
+	for (int i = 0; i < 100; i++)
+	{
+		testItems = generateRandomItemSet(numberOfItems);
+		KnapsackProblem::GreedyByProfit(testItems, 10, greedyProfitTimes);
+		KnapsackProblem::GreedyByValue(testItems, 10, greedyValueTimes);
+		KnapsackProblem::Dynamic(testItems, 10, dynamicTimes);
+	}
+	saveTimesToTextFile(false, "10", to_string(numberOfItems), averageOperationTime(greedyProfitTimes), averageOperationTime(greedyValueTimes), averageOperationTime(dynamicTimes));
+	greedyProfitTimes.clear();
+	greedyValueTimes.clear();
+	dynamicTimes.clear();
+	for (int i = 0; i < 100; i++)
+	{
+		testItems = generateRandomItemSet(numberOfItems);
+		KnapsackProblem::GreedyByProfit(testItems, 15, greedyProfitTimes);
+		KnapsackProblem::GreedyByValue(testItems, 15, greedyValueTimes);
+		KnapsackProblem::Dynamic(testItems, 15, dynamicTimes);
+	}
+	saveTimesToTextFile(false, "15", to_string(numberOfItems), averageOperationTime(greedyProfitTimes), averageOperationTime(greedyValueTimes), averageOperationTime(dynamicTimes));
+	greedyProfitTimes.clear();
+	greedyValueTimes.clear();
+	dynamicTimes.clear();
+	for (int i = 0; i < 100; i++)
+	{
+		testItems = generateRandomItemSet(numberOfItems);
+		KnapsackProblem::GreedyByProfit(testItems, 20, greedyProfitTimes);
+		KnapsackProblem::GreedyByValue(testItems, 20, greedyValueTimes);
+		KnapsackProblem::Dynamic(testItems, 20, dynamicTimes);
+	}
+	saveTimesToTextFile(false, "20", to_string(numberOfItems), averageOperationTime(greedyProfitTimes), averageOperationTime(greedyValueTimes), averageOperationTime(dynamicTimes));
+	greedyProfitTimes.clear();
+	greedyValueTimes.clear();
+	dynamicTimes.clear();
+
+	numberOfItems = 50;
+	//testy dla 50 przedmiotow i pojemnosci 10, 15, 20
 	for (int i = 0; i < 100; i++)
 	{
 		testItems = generateRandomItemSet(numberOfItems);
